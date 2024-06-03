@@ -3,7 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const port = process.env.PORT || 5000;
 
 const app = express();
@@ -401,47 +400,6 @@ async function run() {
         res.send(result);
       }
     );
-
-    app.post("/create-payment-intent", async (req, res) => {
-      const price = req.body.productPrice;
-      const amount = price * 100;
-
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount: amount,
-        currency: "usd",
-        payment_method_types: ["card"],
-      });
-
-      res.send({
-        clientSecret: paymentIntent.client_secret,
-      });
-    });
-
-    app.post("/payments", async (req, res) => {
-      const payment = req.body;
-      const { orderId, productId } = payment;
-
-      const filterOne = { _id: ObjectId(orderId) };
-      const optionOne = { upsert: true };
-      const updatedDocOne = {
-        $set: {
-          saleStatus: "paid",
-        },
-      };
-      await ordersCollection.updateOne(filterOne, updatedDocOne, optionOne);
-
-      const filterTwo = { _id: ObjectId(productId) };
-      const optionTwo = { upsert: true };
-      const updatedDocTwo = {
-        $set: {
-          saleStatus: "paid",
-        },
-      };
-      await productsCollection.updateOne(filterTwo, updatedDocTwo, optionTwo);
-
-      const result = await paymentsCollection.insertOne(payment);
-      res.send(result);
-    });
   } finally {
   }
 }
