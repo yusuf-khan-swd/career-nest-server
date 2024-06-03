@@ -46,7 +46,6 @@ async function run() {
       .collection("categories");
     const productsCollection = client.db("thriftStore").collection("products");
     const ordersCollection = client.db("thriftStore").collection("orders");
-    const paymentsCollection = client.db("thriftStore").collection("payments");
 
     const verifyAdmin = async (req, res, next) => {
       const decodedEmail = req.decoded.email;
