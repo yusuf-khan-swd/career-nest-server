@@ -40,12 +40,12 @@ const verifyJWT = (req, res, next) => {
 
 async function run() {
   try {
-    const usersCollection = client.db("thriftStore").collection("users");
-    const categoriesCollection = client
-      .db("thriftStore")
-      .collection("categories");
-    const productsCollection = client.db("thriftStore").collection("products");
-    const ordersCollection = client.db("thriftStore").collection("orders");
+    const thriftStoreDB = client.db("thriftStore");
+
+    const usersCollection = thriftStoreDB.collection("users");
+    const categoriesCollection = thriftStoreDB.collection("categories");
+    const productsCollection = thriftStoreDB.collection("products");
+    const ordersCollection = thriftStoreDB.collection("orders");
 
     const verifyAdmin = async (req, res, next) => {
       const decodedEmail = req.decoded.email;
