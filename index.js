@@ -5,6 +5,8 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const port = process.env.PORT || 5000;
 
+// git deployment is not working properly with vercel
+
 const app = express();
 app.use(cors());
 app.use(express.json());
