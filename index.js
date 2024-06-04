@@ -149,15 +149,6 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/jwt", async (req, res) => {
-      const email = req.query.email;
-      console.log(email);
-      const token = jwt.sign({ email }, process.env.ACCESS_TOKEN, {
-        expiresIn: "7d",
-      });
-      res.send({ token });
-    });
-
     app.get("/usersType", verifyJWT, async (req, res) => {
       const decodedEmail = req.decoded.email;
       const email = req.query.email;
