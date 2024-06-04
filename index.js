@@ -62,6 +62,7 @@ async function run() {
     const productsCollection = careerNestDB.collection("products");
     const ordersCollection = careerNestDB.collection("orders");
 
+    // Users Routes
     app.post("/users", async (req, res) => {
       const user = req.body;
       const email = user?.email;
