@@ -127,8 +127,8 @@ async function run() {
     // ---------------------------- Jobs Routes --------------------
 
     app.post("/jobs", verifyJWT, async (req, res) => {
-      const jobs = req.body;
-      const result = await jobsCollection.insertOne(jobs);
+      const jobData = req.body;
+      const result = await jobsCollection.insertOne(jobData);
       res.send(result);
     });
 
@@ -150,16 +150,9 @@ async function run() {
       const jobsData = req.body;
 
       const filter = { _id: ObjectId(id) };
-      const options = { upsert: true };
-      const updatedDoc = {
-        $set: jobsData,
-      };
+      const updatedDoc = { $set: jobsData };
 
-      const result = await jobsCollection.updateOne(
-        filter,
-        updatedDoc,
-        options
-      );
+      const result = await jobsCollection.updateOne(filter, updatedDoc);
       res.send(result);
     });
 
