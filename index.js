@@ -62,33 +62,6 @@ async function run() {
     const productsCollection = careerNestDB.collection("products");
     const ordersCollection = careerNestDB.collection("orders");
 
-    const verifyAdmin = async (req, res, next) => {
-      const decodedEmail = req.decoded.email;
-      const filter = { userEmail: decodedEmail };
-      const user = await usersCollection.findOne(filter);
-
-      if (user.userType !== "admin") {
-        return res
-          .status(401)
-          .send({ message: "Unauthorized access. User is not admin" });
-      }
-
-      next();
-    };
-
-    const verifySeller = async (req, res, next) => {
-      const decodedEmail = req.decoded.email;
-      const filter = { userEmail: decodedEmail };
-      const user = await usersCollection.findOne(filter);
-
-      if (user.userType !== "seller") {
-        return res
-          .status(401)
-          .send({ message: "Unauthorized access. User is not Seller" });
-      }
-      next();
-    };
-
     app.post("/users", async (req, res) => {
       const user = req.body;
       const email = user?.email;
