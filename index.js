@@ -92,7 +92,6 @@ async function run() {
     app.post("/users", async (req, res) => {
       const user = req.body;
       const email = user?.email;
-      const name = user?.name;
       const token = createToken(user);
 
       const isUserExist = await usersCollection.findOne({ email });
@@ -108,7 +107,7 @@ async function run() {
       } else {
         res.send({
           success: false,
-          message: `${name} you already have an account. Please login`,
+          message: `You already have an account. Successfully login`,
           data: { token },
         });
       }
