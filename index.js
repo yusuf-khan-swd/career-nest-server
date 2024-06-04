@@ -117,7 +117,11 @@ async function run() {
         { upsert: true }
       );
 
-      res.send(result);
+      res.send({
+        success: true,
+        message: "User data update successfully",
+        data: result,
+      });
     });
 
     app.delete("/users", async (req, res) => {
