@@ -102,21 +102,16 @@ async function run() {
       res.send(result);
     });
 
-    app.put("/users/:id", verifyJWT, async (req, res) => {
+    app.patch("/user/profile/:id", async (req, res) => {
       const id = req.params.id;
-      const filter = { _id: ObjectId(id) };
-      const options = { upsert: true };
-      const updatedDoc = {
-        $set: {
-          userType: "admin",
-        },
-      };
+      const data = req.body;
 
       const result = await usersCollection.updateOne(
-        filter,
-        updatedDoc,
-        options
+        { _id: new ObjectId(id) },
+        { $set: data },
+        { upsert: true }
       );
+
       res.send(result);
     });
 
