@@ -96,7 +96,7 @@ async function run() {
       });
     });
 
-    app.put("/users/:id", verifyJWT, verifyAdmin, async (req, res) => {
+    app.put("/users/:id", verifyJWT, async (req, res) => {
       const id = req.params.id;
       const filter = { _id: ObjectId(id) };
       const options = { upsert: true };
@@ -137,7 +137,7 @@ async function run() {
       res.send({ result });
     });
 
-    app.post("/categories", verifyJWT, verifyAdmin, async (req, res) => {
+    app.post("/categories", verifyJWT, async (req, res) => {
       const category = req.body;
       const result = await categoriesCollection.insertOne(category);
       res.send(result);
@@ -163,7 +163,7 @@ async function run() {
       }
     });
 
-    app.delete("/categories/:id", verifyJWT, verifyAdmin, async (req, res) => {
+    app.delete("/categories/:id", verifyJWT, async (req, res) => {
       const categoryName = req.query.categoryName;
       const query = { productCategory: categoryName };
       await productsCollection.deleteMany(query);
@@ -174,13 +174,13 @@ async function run() {
       res.send(result);
     });
 
-    app.post("/seller-product", verifyJWT, verifySeller, async (req, res) => {
+    app.post("/seller-product", verifyJWT, async (req, res) => {
       const product = req.body;
       const result = await productsCollection.insertOne(product);
       res.send(result);
     });
 
-    app.get("/seller-products", verifyJWT, verifySeller, async (req, res) => {
+    app.get("/seller-products", verifyJWT, async (req, res) => {
       const email = req.query.email;
       const query = { sellerEmail: email };
       const result = await productsCollection.find(query).toArray();
@@ -190,7 +190,7 @@ async function run() {
     app.put(
       "/seller-product/:id",
       verifyJWT,
-      verifySeller,
+
       async (req, res) => {
         const advertise = req.body.advertise;
         const id = req.params.id;
@@ -214,7 +214,7 @@ async function run() {
     app.delete(
       "/seller-product/:id",
       verifyJWT,
-      verifySeller,
+
       async (req, res) => {
         const id = req.params.id;
         const filter = { _id: ObjectId(id) };
@@ -223,13 +223,13 @@ async function run() {
       }
     );
 
-    app.get("/all-sellers", verifyJWT, verifyAdmin, async (req, res) => {
+    app.get("/all-sellers", verifyJWT, async (req, res) => {
       const query = { userType: "seller" };
       const result = await usersCollection.find(query).toArray();
       res.send(result);
     });
 
-    app.put("/all-sellers/:id", verifyJWT, verifyAdmin, async (req, res) => {
+    app.put("/all-sellers/:id", verifyJWT, async (req, res) => {
       const verified = req.body.verified;
 
       let isVerified = "";
@@ -267,33 +267,33 @@ async function run() {
       res.send(result);
     });
 
-    app.delete("/all-sellers/:id", verifyJWT, verifyAdmin, async (req, res) => {
+    app.delete("/all-sellers/:id", verifyJWT, async (req, res) => {
       const id = req.params.id;
       const filter = { _id: ObjectId(id) };
       const result = await usersCollection.deleteOne(filter);
       res.send(result);
     });
 
-    app.get("/all-buyers", verifyJWT, verifyAdmin, async (req, res) => {
+    app.get("/all-buyers", verifyJWT, async (req, res) => {
       const filter = { userType: "buyer" };
       const result = await usersCollection.find(filter).toArray();
       res.send(result);
     });
 
-    app.delete("/all-buyers/:id", verifyJWT, verifyAdmin, async (req, res) => {
+    app.delete("/all-buyers/:id", verifyJWT, async (req, res) => {
       const id = req.params.id;
       const filter = { _id: ObjectId(id) };
       const result = await usersCollection.deleteOne(filter);
       res.send(result);
     });
 
-    app.get("/all-admins", verifyJWT, verifyAdmin, async (req, res) => {
+    app.get("/all-admins", verifyJWT, async (req, res) => {
       const filter = { userType: "admin" };
       const result = await usersCollection.find(filter).toArray();
       res.send(result);
     });
 
-    app.delete("/all-admins/:id", verifyJWT, verifyAdmin, async (req, res) => {
+    app.delete("/all-admins/:id", verifyJWT, async (req, res) => {
       const id = req.params.id;
       const filter = { _id: ObjectId(id) };
       const result = await usersCollection.deleteOne(filter);
@@ -333,7 +333,7 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/ordered-products", verifyJWT, verifySeller, async (req, res) => {
+    app.get("/ordered-products", verifyJWT, async (req, res) => {
       const email = req.query.email;
       const filter = { sellerEmail: email };
       const result = await ordersCollection.find(filter).toArray();
@@ -366,7 +366,7 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/reported-products", verifyJWT, verifyAdmin, async (req, res) => {
+    app.get("/reported-products", verifyJWT, async (req, res) => {
       const query = { reported: true };
       const result = await productsCollection.find(query).toArray();
       res.send(result);
@@ -375,7 +375,7 @@ async function run() {
     app.delete(
       "/reported-products/:id",
       verifyJWT,
-      verifyAdmin,
+
       async (req, res) => {
         const id = req.params.id;
         const query = { _id: ObjectId(id) };
