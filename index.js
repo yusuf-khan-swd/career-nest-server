@@ -40,7 +40,8 @@ const verifyJWT = (req, res, next) => {
   }
 
   const token = authHeader.split(" ")[1];
-  jwt.verify(token, process.env.ACCESS_TOKEN, function (err, decoded) {
+
+  jwt.verify(token, jwt_secret, function (err, decoded) {
     if (err) {
       return res
         .status(401)
@@ -92,6 +93,7 @@ async function run() {
       const user = req.body;
       const email = user?.email;
       const name = user?.name;
+      const token = createToken(user);
 
       const isUserExist = await usersCollection.findOne({ email });
       console.log({ isUserExist });
