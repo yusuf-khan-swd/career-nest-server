@@ -18,6 +18,18 @@ const client = new MongoClient(uri, {
   serverApi: ServerApiVersion.v1,
 });
 
+const jwt_secret = process.env.JWT_SECRET;
+
+const createToken = (user) => {
+  return jwt.sign(
+    {
+      email: user?.email,
+    },
+    jwt_secret,
+    { expiresIn: "7d" }
+  );
+};
+
 const verifyJWT = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
