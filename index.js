@@ -96,6 +96,12 @@ async function run() {
       });
     });
 
+    app.get("/user/profile/:id", async (req, res) => {
+      const id = req.params.id;
+      const result = await usersCollection.findOne({ _id: new ObjectId(id) });
+      res.send(result);
+    });
+
     app.put("/users/:id", verifyJWT, async (req, res) => {
       const id = req.params.id;
       const filter = { _id: ObjectId(id) };
