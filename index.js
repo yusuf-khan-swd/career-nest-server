@@ -78,10 +78,10 @@ async function run() {
 
     app.post("/users", async (req, res) => {
       const user = req.body;
-      const email = user.userEmail;
+      const email = user?.email;
+      const name = user?.name;
 
-      const filter = { userEmail: email };
-      const isUserRegister = await usersCollection.findOne(filter);
+      const isUserRegister = await usersCollection.findOne({ email });
       console.log(isUserRegister);
 
       if (!isUserRegister) {
@@ -93,7 +93,7 @@ async function run() {
       } else {
         res.send({
           success: false,
-          message: `${user.userName} you already have an account. Please login`,
+          message: `${name} you already have an account. Please login`,
         });
       }
     });
