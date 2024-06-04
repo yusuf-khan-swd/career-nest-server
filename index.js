@@ -115,9 +115,12 @@ async function run() {
 
     app.get("/users", async (req, res) => {
       const email = req.query.email;
-      const query = { userEmail: email };
-      const result = await usersCollection.findOne(query);
-      res.send({ result });
+      const result = await usersCollection.findOne({ email });
+      res.send({
+        success: true,
+        message: "Successfully get user data",
+        data: result,
+      });
     });
 
     app.put("/users/:id", verifyJWT, verifyAdmin, async (req, res) => {
