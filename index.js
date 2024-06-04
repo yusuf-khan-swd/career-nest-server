@@ -102,12 +102,14 @@ async function run() {
         const result = await usersCollection.insertOne(user);
         return res.send({
           success: true,
-          data: result,
+          message: "Successfully login",
+          data: { ...result, token },
         });
       } else {
         res.send({
           success: false,
           message: `${name} you already have an account. Please login`,
+          data: { token },
         });
       }
     });
