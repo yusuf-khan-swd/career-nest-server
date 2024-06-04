@@ -82,7 +82,7 @@ async function run() {
       const name = user?.name;
 
       const isUserRegister = await usersCollection.findOne({ email });
-      console.log(isUserRegister);
+      console.log({ isUserRegister });
 
       if (!isUserRegister) {
         const result = await usersCollection.insertOne(user);
