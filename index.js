@@ -122,21 +122,6 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/usersType", verifyJWT, async (req, res) => {
-      const decodedEmail = req.decoded.email;
-      const email = req.query.email;
-
-      if (email !== decodedEmail) {
-        return res
-          .status(403)
-          .send({ message: "Forbidden access! Email is not matched" });
-      }
-
-      const filter = { userEmail: decodedEmail };
-      const result = await usersCollection.findOne(filter);
-      res.send({ result });
-    });
-
     app.post("/categories", verifyJWT, async (req, res) => {
       const category = req.body;
       const result = await categoriesCollection.insertOne(category);
