@@ -100,7 +100,11 @@ async function run() {
     app.get("/users/profile/:id", verifyJWT, async (req, res) => {
       const id = req.params.id;
       const result = await usersCollection.findOne({ _id: new ObjectId(id) });
-      res.send(result);
+      res.send({
+        success: true,
+        message: "User data fetched successfully",
+        data: result,
+      });
     });
 
     app.patch("/users/profile/:id", verifyJWT, async (req, res) => {
