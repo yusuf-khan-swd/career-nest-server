@@ -97,13 +97,13 @@ async function run() {
       });
     });
 
-    app.get("/user/profile/:id", async (req, res) => {
+    app.get("/user/profile/:id", verifyJWT, async (req, res) => {
       const id = req.params.id;
       const result = await usersCollection.findOne({ _id: new ObjectId(id) });
       res.send(result);
     });
 
-    app.patch("/user/profile/:id", async (req, res) => {
+    app.patch("/user/profile/:id", verifyJWT, async (req, res) => {
       const id = req.params.id;
       const data = req.body;
 
