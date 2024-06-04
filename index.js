@@ -81,10 +81,10 @@ async function run() {
       const email = user?.email;
       const name = user?.name;
 
-      const isUserRegister = await usersCollection.findOne({ email });
-      console.log({ isUserRegister });
+      const isUserExist = await usersCollection.findOne({ email });
+      console.log({ isUserExist });
 
-      if (!isUserRegister) {
+      if (!isUserExist) {
         const result = await usersCollection.insertOne(user);
         return res.send({
           success: true,
