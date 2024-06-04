@@ -42,12 +42,12 @@ const verifyJWT = (req, res, next) => {
 
 async function run() {
   try {
-    const thriftStoreDB = client.db("thriftStore");
+    const careerNestDB = client.db("careerNest");
 
-    const usersCollection = thriftStoreDB.collection("users");
-    const categoriesCollection = thriftStoreDB.collection("categories");
-    const productsCollection = thriftStoreDB.collection("products");
-    const ordersCollection = thriftStoreDB.collection("orders");
+    const usersCollection = careerNestDB.collection("users");
+    const categoriesCollection = careerNestDB.collection("categories");
+    const productsCollection = careerNestDB.collection("products");
+    const ordersCollection = careerNestDB.collection("orders");
 
     const verifyAdmin = async (req, res, next) => {
       const decodedEmail = req.decoded.email;
