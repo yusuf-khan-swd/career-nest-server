@@ -1,5 +1,5 @@
 ## `Useful Links`
 
-**1. [Github Client Side Repository](https://github.com/yusuf-khan-swd/thrift-store-client)** \
-**2. [Github Server Side Repository](https://github.com/yusuf-khan-swd/thrift-store-server)** \
-**3. [Live Website](https://thrift-store-88291.web.app/)**
+**1. [Github Client Side Repository](https://github.com/yusuf-khan-swd/career-nest-client)** \
+**2. [Github Server Side Repository](https://github.com/yusuf-khan-swd/career-nest-server)** \
+**3. [Live Website](https://career-nest-client.vercel.app/)**
