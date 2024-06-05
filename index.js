@@ -142,7 +142,11 @@ async function run() {
 
     app.get("/jobs", async (req, res) => {
       const result = await jobsCollection.find({}).toArray();
-      res.send(result);
+      res.send({
+        success: true,
+        message: "Jobs data fetched success",
+        data: result,
+      });
     });
 
     app.get("/jobs/:id", async (req, res) => {
