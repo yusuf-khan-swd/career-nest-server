@@ -150,7 +150,11 @@ async function run() {
       const filter = { _id: ObjectId(id) };
 
       const result = await jobsCollection.findOne(filter);
-      res.send(result);
+      res.send({
+        success: true,
+        message: "Job data fetched success",
+        data: result,
+      });
     });
 
     app.patch("/jobs/:id", verifyJWT, async (req, res) => {
