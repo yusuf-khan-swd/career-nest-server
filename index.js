@@ -142,11 +142,7 @@ async function run() {
 
     app.get("/jobs", async (req, res) => {
       const result = await jobsCollection.find({}).toArray();
-      res.send({
-        success: true,
-        message: "Jobs data fetched success",
-        data: result,
-      });
+      res.send(result);
     });
 
     app.get("/jobs/:id", async (req, res) => {
@@ -154,11 +150,7 @@ async function run() {
       const filter = { _id: ObjectId(id) };
 
       const result = await jobsCollection.findOne(filter);
-      res.send({
-        success: true,
-        message: "Job data fetched success",
-        data: result,
-      });
+      res.send(result);
     });
 
     app.patch("/jobs/:id", verifyJWT, async (req, res) => {
